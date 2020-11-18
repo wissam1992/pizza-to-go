@@ -58,6 +58,42 @@ function hideRegistration() {
 	// document.getElementById("registration").style.display = "none";
 }
 
+function registration(){
+    var formData = JSON.stringify($("#registrationForm").serializeArray());
+    fetch("app/register", {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: formData
+    })
+    .then( response => {
+		if( !response.ok )
+		{
+			throw Error(response.statusText);
+		}
+	} )
+	.catch( error => console.error('Error:', error));
+}
+
+function login(){
+    var formData = JSON.stringify($("#loginForm").serializeArray());
+    fetch("app/login", {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: formData
+    })
+    .then( response => {
+		if( !response.ok )
+		{
+			throw Error(response.statusText);
+		}
+	} )
+	.catch( error => console.error('Error:', error));
+}
+
 
 // Vorname prüfen
 var nameOk = false;
