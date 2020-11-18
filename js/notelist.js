@@ -106,7 +106,6 @@ var passwdOk = false;
 
 
 
-
 function checkIfAllOk() {
 	let allOk = nameOk && emailOk && straßeOk && straßeNrOk && plzOk && userOk && passwdOk;
 	if (allOk) {

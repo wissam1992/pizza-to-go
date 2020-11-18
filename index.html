@@ -70,45 +70,55 @@
 					</div>
 					<div class="form-bottom">
 						<form role="form" class="registration-form" name="registrationForm">
-							<div class="form-group">
-								<input type="text" name="form-first-name" placeholder="Vorname..." class="form-first-name form-control" id="form-first-name" 
-								onkeyup="checkVorname()" onblur="checkVornameOnBlur()" onfocus="checkVornameOnFocus()" >
+							<div class="wrapper">
+								<div class = "form-bottom-left">
+									<div class="form-group">
+										<input type="text" name="form-first-name" placeholder="Vorname..." class="form-first-name form-control" id="form-first-name" 
+										onkeyup="checkVorname()" onblur="checkVornameOnBlur()" onfocus="checkVornameOnFocus()" >
+									</div>
+									<div class="form-group">
+										<input type="text" name="form-email" placeholder="E-Mail-Adresse..." class="form-email form-control" id="form-email"
+										onkeyup="checkEmail()" onblur="checkEmailOnBlur()" onfocus="checkEmailOnFocus()">
+									</div>
+									<div class="form-group">
+										<input type="text" name="form-plz" placeholder="PLZ..." class="form-plz form-control" id="form-plz"
+										onkeyup="getPlzFromEscher()" onfocus="checkPlzOnFocus()" onblur="checkPlzOnBlur()">
+									</div>
+									<div class="form-group">
+										<input type="text" name="form-nr" placeholder="Hausnummer..." class="form-nr form-control" id="form-nr"
+										onkeyup="checkStraßeNr()" onblur="checkStraßeNrOnBlur()" onfocus="checkStraßeNrOnFocus()" >
+									</div>
+									<div class="form-group">
+										<input type="password" name="form-password" placeholder="Passwort..." class="form-password form-control" id="form-password">
+										<!-- onkeyup="checkPassword()" -->
+										<canvas id="pwdCanvas" width="155" height="20" style="border: 1px solid #d3d3d3;"></canvas>
+									</div>
+									
+									<button type="button" class="btn" onclick="registration()">Absenden</button>
+								</div>
+							
+								<div class = "form-bottom-right">
+									<div class="form-group">
+										<input type="text" name="form-last-name" placeholder="Nachname..." class="form-last-name form-control" id="form-last-name"
+										onkeyup="checkNachname()" onblur="checkNachnameOnBlur()" onfocus="checkNachnameOnFocus()" >
+									</div>
+									<div class="form-group">
+										<input  type="text" name="form-user" placeholder="Benutzername..." class="form-user form-control" id="form-user"
+										onkeyup="checkUser()" onfocus="checkUserOnFocus()" onblur="checkUserOnBlur()" >
+									</div>
+									<div class="form-group">
+										<input type="text" name="form-street" placeholder="Straße..." class="form-street form-control" id="form-street"
+										onkeyup="checkStraße()" onblur="checkStraßeOnBlur()" onfocus="checkStraßeOnFocus()" >
+									</div>
+									<div class="form-group_space">
+										<input type="password" name="form-password2" placeholder="Passwort bestätigen..." class="form-password2 form-control" id="form-password">
+										<!-- onkeyup="checkPassword()" -->
+									</div>
+									<button type="button" class="btn" id="Abbrechen" onclick="hideRegistration()">Abbrechen</button>
+								</div>
 							</div>
-							<div class="form-group">
-								<input type="text" name="form-last-name" placeholder="Nachname..." class="form-last-name form-control" id="form-last-name"
-								onkeyup="checkNachname()" onblur="checkNachnameOnBlur()" onfocus="checkNachnameOnFocus()" >
 							</div>
-							<div class="form-group">
-								<input type="text" name="form-email" placeholder="E-Mail-Adresse..." class="form-email form-control" id="form-email"
-								onkeyup="checkEmail()" onblur="checkEmailOnBlur()" onfocus="checkEmailOnFocus()">
-							</div>
-							<div class="form-group">
-								<input  type="text" name="form-last-name" placeholder="Nachname..." class="form-last-name form-control" id="form-last-name"
-								onkeyup="checkUser()" onfocus="checkUserOnFocus()" onblur="checkUserOnBlur()" >
-							</div>
-							<div class="form-group">
-								<input type="text" name="form-plz" placeholder="PLZ..." class="form-plz form-control" id="form-plz"
-								onkeyup="getPlzFromEscher()" onfocus="checkPlzOnFocus()" onblur="checkPlzOnBlur()">
-							</div>
-							<div class="form-group">
-								<input type="text" name="form-street" placeholder="Straße..." class="form-street form-control" id="form-street"
-								onkeyup="checkStraße()" onblur="checkStraßeOnBlur()" onfocus="checkStraßeOnFocus()" >
-							</div>
-							<div class="form-group">
-								<input type="text" name="form-nr" placeholder="Nr..." class="form-nr form-control" id="form-nr"
-								onkeyup="checkStraßeNr()" onblur="checkStraßeNrOnBlur()" onfocus="checkStraßeNrOnFocus()" >
-							</div>
-							<div class="form-group">
-								<input type="password" name="form-password" placeholder="Passwort..." class="form-password form-control" id="form-password">
-								<!-- onkeyup="checkPassword()" -->
-								<canvas id="pwdCanvas" width="155" height="20" style="border: 1px solid #d3d3d3;"></canvas>
-							</div>
-							<div class="form-group">
-								<input type="password" name="form-password2" placeholder="Passwort bestätigen..." class="form-password2 form-control" id="form-password">
-								<!-- onkeyup="checkPassword()" -->
-							</div>
-							<button type="button" class="btn" onclick="registration()">Absenden</button>
-							<button type="button" class="btn" id="Abbrechen" onclick="hideRegistration()">Abbrechen</button>
+							
 							<p>
 							<div id="benutzerError" style="color: red;"></div>
 							</p>				

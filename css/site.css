@@ -80,7 +80,7 @@ footer {
 	/* position: absolute; */
     /* top: 900px; */
     left: 200px;
-    width: 400px;
+    width: 800px;
     border-radius: 7px;
     /* border: 1.5px solid #000000; */
     margin: 30px auto;
@@ -417,7 +417,23 @@ footer {
 .form-bottom {
 	padding: 25px 25px 30px 25px;
 	background: #eeeeeeb8;
-	text-align: left;
+  text-align: left;
+
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+	flex-wrap: wrap;
+}
+
+.form-bottom-left, .form-bottom-right {
+  width: 45%;
+  margin-right: 15px;
+}
+
+.form-bottom-right {
+  margin
 }
 
 .form-bottom form textarea {
@@ -427,6 +443,11 @@ footer {
 .form-bottom form button.btn {
   width: 100%;
   margin-bottom: 15px
+}
+
+.form-group_space {
+  margin-top: 94px;
+  margin-bottom: 41px;
 }
 
 .form-control {
