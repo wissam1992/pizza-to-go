@@ -69,6 +69,7 @@ var passwdOk = false;
 
 
 
+
 function checkIfAllOk() {
 	let allOk = nameOk && emailOk && straßeOk && straßeNrOk && plzOk && userOk && passwdOk;
 	if (allOk) {
@@ -411,6 +412,72 @@ const pizza = [
 ];
 
 
+const supplement = [
+	{
+		"id": 1,
+		"imagePath": "Images//Tomates.jpg",
+		"name": "Cherrytomaten",
+		"price": 1.30
+	},
+	{
+		"id": 2,
+		"imagePath": "Images//Zwiebel.jpg",
+		"name": "Zwiebel",
+		"price": 0.75
+	},
+	{
+		"id": 3,
+		"imagePath": "Images//thunafisch.jpg",
+		"name": "Thunafisch",
+		"price": 3
+	},
+	{
+		"id": 4,
+		"imagePath": "Images//Pilze.jpeg",
+		"name": "Pilz",
+		"price": 3
+	},
+	{
+		"id": 5,
+		"imagePath": "Images//Tomates.jpg",
+		"name": "Cherrytomaten",
+		"price": 1.30
+	},
+	{
+		"id": 6,
+		"imagePath": "Images//Tomates.jpg",
+		"name": "Cherrytomaten",
+		"price": 1.30
+	},
+	{
+		"id": 7,
+		"imagePath": "Images//Tomates.jpg",
+		"name": "Cherrytomaten",
+		"price": 1.30
+	},
+	{
+		"id": 8,
+		"imagePath": "Images//Tomates.jpg",
+		"name": "Cherrytomaten",
+		"price": 1.30
+	},
+	{
+		"id": 9,
+		"imagePath": "Images//Tomates.jpg",
+		"name": "Cherrytomaten",
+		"price": 1.30
+	},
+	{
+		"id": 10,
+		"imagePath": "Images//Pilze.jpeg",
+		"name": "Pilz",
+		"price": 3
+	}
+];
+
+
+
+
 function petTemplate(pizza) {
 
 	var pizzaList = "";
@@ -436,8 +503,17 @@ function hinzufuegen(id) {
 
 		if (id == com.id) {
 
+			if (array.some(item => item.pizza_id === id)) {
 
-			if (array.length == 0) {
+				array[index(array, "pizza_id", id)].Pizza_anzahl++;
+				array[index(array, "pizza_id", id)].Pizza_summe = array[index(array, "pizza_id", id)].Pizza_preis * array[index(array, "pizza_id", id)].Pizza_anzahl;
+
+				w++;
+				warenkorb();
+				summe();
+			}
+
+			else {
 
 				array.push({
 					pizza_id: com.id,
@@ -456,44 +532,9 @@ function hinzufuegen(id) {
 
 			}
 
-			else {
-
-				console.log(array.some(item => item.pizza_id === id));
-
-				if (array.some(item => item.pizza_id === id)) {
-					
-					array[index(array, "pizza_id", id)].Pizza_anzahl++;
-					array[index(array, "pizza_id", id)].Pizza_summe = array[index(array, "pizza_id", id)].Pizza_preis * array[index(array, "pizza_id", id)].Pizza_anzahl;
-
-					 summe();
-				}
-
-				else {
-
-					array.push({
-						pizza_id: com.id,
-						pizza_name: com.name,
-						Pizza_image: com.imagePath,
-						Pizza_preis: com.price,
-						Pizza_summe: com.price * a,
-						Pizza_description: com.description,
-						Pizza_anzahl: a
-
-					});
-
-					w++;
-					warenkorb();
-
-					summe();
-
-				}
-
-			}
-
 		}
 
 		showWarenkorb(array);
-
 
 	});
 
@@ -502,17 +543,16 @@ function hinzufuegen(id) {
 
 function löschen(id) {
 
-	w--;
+	w = w - array[index(array, "pizza_id", id)].Pizza_anzahl;
 	warenkorb();
 	array.forEach(com => {
 
 		if (id == com.pizza_id) {
-			
+
 			const i = array.indexOf(com);
 			if (i > -1) {
 				array.splice(i, 1);
 			}
-
 
 			summe();
 		}
@@ -523,30 +563,127 @@ function löschen(id) {
 
 }
 
-function showInfos(id) {
+var suppl = [
+	];
 
-	console.log(id);
-	document.querySelector("#app").style.display = "none";
+function showAktuelleZutaten(id) {
 
-	pizza.forEach(com => {
+	var sup = "";
 
-		if (id == com.id) {
-			document.querySelector("#showinfo").innerHTML =
+	suppl.forEach(e => {
 
-				'<div class="mehrinfos"  style="margin : 15px"> <table><tr><td rowspan="2" id="td_img">'
-				+ '<img class="photo" src="'
-				+ com.imagePath + '"></td><td style="vertical-align: top;text-align: left; "><p class="name"> '
-				+ com.name + '</p></td> </tr><tr><td style="vertical-align: top;text-align: left; padding-left:10px"><strong >Preis:  </strong> ' + com.price + ' €</td></tr><tr><td colspan="2"><p> '
-				+ com.description + '</p></td></tr></table>'
-				+ ' <span id="info_zurück"><a id="hideinfo" onclick="hideInfos()"><i class="fas fa-hand-point-left"></i> Zurück</a><button type="button" class="hinzufuegen" id="hinzufuegen" onclick="hinzufuegen('
-				+ com.id + ')" ><i class="fas fa-cart-plus"></i></button>  </span></div >';
+		if(id== e.pizza_id){
+
+
+		sup += '<table class="suppl"  onclick="suppl_löschen(' + e.supplement_id + ',' + e.pizza_id + ')"><tr><td style="height:50px;"><img  class="photo" src="'
+			+ e.imagePath + '"></td><tr><td> <strong >'
+			+ e.name + '</strong></td> </tr></tr><tr><td>' + e.price + ' €</td></tr></table>';
+
+		}
+	});
+
+	document.querySelector("#aktuelleZutaten").innerHTML = sup;
+
+}
+
+
+function suppl_löschen(s_id,p_id){ 
+
+	suppl.forEach(com => {
+		
+		if (p_id == com.pizza_id && s_id == com.supplement_id) {
+
+			const i = suppl.indexOf(com);
+			if (i > -1) {
+				suppl.splice(i, 1);
+			}
 
 		}
 
 	});
 
+	console.log(suppl);
+	showAktuelleZutaten(p_id);
 
 }
+function suppl_hinzufügen(s_id,p_id){
+
+	supplement.forEach(element => {
+		
+		if(s_id == element.id )
+		suppl.push({
+			pizza_id: p_id,
+			supplement_id: s_id,
+			imagePath: element.imagePath,
+			name: element.name,
+		 	price: element.price
+			
+		});
+	});
+
+	console.log(suppl);
+
+	showAktuelleZutaten(p_id);
+	
+}
+
+function showInfos(id) {
+
+	document.querySelector("#app").style.display = "none";
+	document.querySelector("#showinfo").style.display = "block";
+	// document.querySelector("#supplement").style.display = "block";
+	var supplementTable = "";
+	var test = "";
+	
+	
+	pizza.forEach(com => {
+
+		supplement.forEach(e => {
+
+			if (id == com.id) {
+
+				supplementTable += '<table class="suppl" onclick="suppl_hinzufügen(' + e.id + ',' + id + ')" ><tr><td style="height:50px;"><img  class="photo" src="'
+					+ e.imagePath + '"></td><tr><td> <strong >'
+					+ e.name + '</strong></td> </tr></tr><tr><td>' + e.price + ' €</td></tr></table>';
+
+
+				document.querySelector("#showinfo").innerHTML = '<div class="mehrinfos"  style="margin : 15px"> <table><tr><td rowspan="2" id="td_img">'
+					+ '<img class="photo" src="'
+					+ com.imagePath + '"></td><td style="vertical-align: top;text-align: left; "><p class="name"> '
+					+ com.name + '</p></td> </tr><tr><td style="vertical-align: top;text-align: left; padding-left:10px"><strong >Preis:  </strong> ' + com.price + ' €</td></tr><tr><td colspan="2"><p> '
+					+ com.description + '</p></td></tr></table>'
+					+ '<p>AKTUELLE ZUTATEN</p>'
+					+ '<div id="aktuelleZutaten"></div>'
+					+ '<p>ZUTATEN HINZUFÜGEN (Klicke zum hinzufügen)</p>'
+
+
+					+ supplementTable
+
+					+ ' <span id="info_zurück" style= " : 100"><a id="hideinfo" onclick="hideInfos()"><i class="fas fa-hand-point-left"></i> Zurück</a><button type="button" class="hinzufuegen1" id="hinzufuegen" onclick="hinzufuegen('
+					+ com.id + ')" ><i class="fas fa-cart-plus"></i></button>  </span>'
+
+					+ '</div >';
+			}
+		});
+
+
+	});
+
+	showAktuelleZutaten(id);
+
+	// supplement.forEach(e => {
+
+	// 	supplementTable += '<table style ="width:30px;display:inline-table; table-layout:fixed;" border="2" ><tr><td id="td_img"><img class="photo" src="'
+	// 	+ e.imagePath + '"></td><tr><td><p class="name"> '
+	// 	+ e.name + '</p></td> </tr></tr><tr><td><strong >Preis:  </strong> ' + e.price + ' €</td></tr></table>' ;
+
+	// });
+
+	// document.querySelector("#supplement").innerHTML = supplementTable;
+	// document.querySelector("#showinfo").innerHTML = test ;
+}
+
+
 
 function showWarenkorb(array) {
 	var warenkorb = "";
@@ -568,10 +705,12 @@ function showWarenkorb(array) {
 
 
 function hideInfos() {
-
-	document.querySelector("#app").style.display = "block";
 	document.querySelector("#showinfo").style.display = "none";
+	document.querySelector("#app").style.display = "block";
+	// document.querySelector("#supplement").style.display = "none";
 
+
+	// petTemplate(pizza);
 }
 
 function warenkorb() {
@@ -623,15 +762,13 @@ function minus(id) {
 
 
 	}
-	else { löschen(id);}
+	else { löschen(id); }
 
 }
-
 
 function index(arr, key, val) {
 	for (var i = 0; i < arr.length; i++) {
 		if (arr[i][key] === val) return i;
 	}
-
 }
 
