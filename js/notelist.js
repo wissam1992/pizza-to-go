@@ -386,28 +386,44 @@ const pizza = [
 		"imagePath": "https://static.essen-und-trinken.de/bilder/6b/3f/58617/facebook_image/klassischer-burger.jpg",
 		"name": "Classic Burger",
 		"description": "with beef, cheese, onion, tomato, with beef, cheese, onion, tomato, with beef, cheese, onion, tomato",
-		"price": 5.5
+		"price": {
+			"classic": 5.5,
+			"medium": 6.0,
+			"large": 6.5
+		}
 	},
 	{
 		"id": 2,
 		"imagePath": "https://img.delicious.com.au/0Hfc6oZG/w1200/del/2017/03/creamy-pumpkin-soup-43936-2.jpg",
 		"name": "Pumpkin Soup",
 		"description": "with pumpkins, Lorem ipsum dolor sit amet, consetetur sadipscing",
-		"price": 0.75
+		"price": {
+			"classic": 3.5,
+			"medium": 4.0,
+			"large": 5.5
+		}
 	},
 	{
 		"id": 3,
 		"imagePath": "https://cdn.gutekueche.de/upload/rezept/141/1600x1200_pommes-frites-aus-belgien.jpg",
 		"name": "Pommes",
 		"description": "with ketchup",
-		"price": 3
+		"price": {
+			"classic": 4.5,
+			"medium": 4.8,
+			"large": 5.2
+		}
 	},
 	{
 		"id": 4,
 		"imagePath": "https://cdn.gutekueche.de/upload/rezept/141/1600x1200_pommes-frites-aus-belgien.jpg",
 		"name": "Pommes",
 		"description": "with ketchup",
-		"price": 3
+		"price": {
+			"classic": 4.2,
+			"medium": 4.6,
+			"large": 5.3
+		}
 	}
 ];
 
@@ -415,63 +431,63 @@ const pizza = [
 const supplement = [
 	{
 		"id": 1,
-		"imagePath": "Images//Tomates.jpg",
+		"imagePath": "Images//Cherrytomaten.jpg",
 		"name": "Cherrytomaten",
-		"price": 1.30
+		"price": 1.39
 	},
 	{
 		"id": 2,
-		"imagePath": "Images//Zwiebel.jpg",
-		"name": "Zwiebel",
+		"imagePath": "Images//Champignons.jpg",
+		"name": "Champignons",
 		"price": 0.75
 	},
 	{
 		"id": 3,
-		"imagePath": "Images//thunafisch.jpg",
-		"name": "Thunafisch",
-		"price": 3
+		"imagePath": "Images//Oliven.jpg",
+		"name": "Oliven",
+		"price": 0.99
 	},
 	{
 		"id": 4,
-		"imagePath": "Images//Pilze.jpeg",
-		"name": "Pilz",
-		"price": 3
+		"imagePath": "Images//Mais.jpg",
+		"name": "Mais",
+		"price": 0.80
 	},
 	{
 		"id": 5,
-		"imagePath": "Images//Tomates.jpg",
-		"name": "Cherrytomaten",
-		"price": 1.30
+		"imagePath": "Images//Chilisalami.jpg",
+		"name": "Chilisalami",
+		"price": 0.80
 	},
 	{
 		"id": 6,
-		"imagePath": "Images//Tomates.jpg",
-		"name": "Cherrytomaten",
-		"price": 1.30
+		"imagePath": "Images//Paprika.jpg",
+		"name": "Paprika",
+		"price": 0.99
 	},
 	{
 		"id": 7,
-		"imagePath": "Images//Tomates.jpg",
-		"name": "Cherrytomaten",
-		"price": 1.30
+		"imagePath": "Images//Bacon.jpg",
+		"name": "Bacon",
+		"price": 1.20
 	},
 	{
 		"id": 8,
-		"imagePath": "Images//Tomates.jpg",
-		"name": "Cherrytomaten",
-		"price": 1.30
+		"imagePath": "Images//Basilikum-Pesto.jpg",
+		"name": "Basilikum-Pesto",
+		"price": 0.60
 	},
 	{
 		"id": 9,
-		"imagePath": "Images//Tomates.jpg",
-		"name": "Cherrytomaten",
-		"price": 1.30
+		"imagePath": "Images//Blattspinat.jpg",
+		"name": "Blattspinat",
+		"price": 0.99
 	},
 	{
 		"id": 10,
-		"imagePath": "Images//Pilze.jpeg",
-		"name": "Pilz",
-		"price": 3
+		"imagePath": "Images//Broccoli.jpg",
+		"name": "Broccoli-Röschen",
+		"price": 0.80
 	}
 ];
 
@@ -485,7 +501,7 @@ function petTemplate(pizza) {
 		pizzaList += '<div class="animal"><img class="pet-photo" src="'
 			+ com.imagePath + '"> <h2 class="pet-name">' + com.name + ' </h2>  <p id="description2"> '
 			+ com.description + '</p>  <p><span id="price"><strong >Preis:  </strong>'
-			+ com.price + ' €</span><span id="preis3"><a id="mehrInfo" onclick="showInfos('
+			+ com.price.classic + ' €</span><span id="preis3"><a id="mehrInfo" onclick="showInfos('
 			+ com.id + ')">Mehr Infos <i class="fas fa-info-circle"></i></a><button type="button" class="hinzufuegen" id="hinzufuegen" onclick="hinzufuegen('
 			+ com.id + ')" ><i class="fas fa-cart-plus"></i></button>  </span> </p></div >';
 	});
@@ -563,8 +579,7 @@ function löschen(id) {
 
 }
 
-var suppl = [
-	];
+var suppl = [];
 
 function showAktuelleZutaten(id) {
 
@@ -572,12 +587,12 @@ function showAktuelleZutaten(id) {
 
 	suppl.forEach(e => {
 
-		if(id== e.pizza_id){
+		if (id == e.pizza_id) {
 
 
-		sup += '<table class="suppl"  onclick="suppl_löschen(' + e.supplement_id + ',' + e.pizza_id + ')"><tr><td style="height:50px;"><img  class="photo" src="'
-			+ e.imagePath + '"></td><tr><td> <strong >'
-			+ e.name + '</strong></td> </tr></tr><tr><td>' + e.price + ' €</td></tr></table>';
+			sup += '<table class="suppl"><tr><td><i class="fas fa-minus-circle" onclick="suppl_löschen(' + e.supplement_id + ',' + e.pizza_id + ')"></i></td></tr><tr><td><img  class="photo_zutaten" src="'
+				+ e.imagePath + '"></td><tr><td> <strong >'
+				+ e.name + '</strong></td> </tr></tr><tr><td>' + e.price + ' €</td></tr></table>';
 
 		}
 	});
@@ -587,44 +602,63 @@ function showAktuelleZutaten(id) {
 }
 
 
-function suppl_löschen(s_id,p_id){ 
+function suppl_löschen(s_id, p_id) {
 
 	suppl.forEach(com => {
-		
+
 		if (p_id == com.pizza_id && s_id == com.supplement_id) {
 
 			const i = suppl.indexOf(com);
+			document.getElementById("preis_size").innerText = parseFloat(document.getElementById("preis_size").innerText) - com.price;
+
 			if (i > -1) {
 				suppl.splice(i, 1);
 			}
-
+			
 		}
 
 	});
 
-	console.log(suppl);
+	
 	showAktuelleZutaten(p_id);
 
+	
 }
-function suppl_hinzufügen(s_id,p_id){
+function suppl_hinzufügen(s_id, p_id) {
 
-	supplement.forEach(element => {
-		
-		if(s_id == element.id )
-		suppl.push({
-			pizza_id: p_id,
-			supplement_id: s_id,
-			imagePath: element.imagePath,
-			name: element.name,
-		 	price: element.price
+	var sum = 0;
+	suppl.forEach(e => {
+
+		if (e.pizza_id == p_id) {
+			sum++; 
 			
-		});
+		}
 	});
 
-	console.log(suppl);
+	if (sum == 3) {
+		window.alert("Es sind nur maximal 3 auswählbare Zutaten für dieses Produkt möglich.");
+		console.log(sum);
+	}
 
+	else {
+		supplement.forEach(element => {
+
+			if (s_id == element.id) {
+				suppl.push({
+					pizza_id: p_id,
+					supplement_id: s_id,
+					imagePath: element.imagePath,
+					name: element.name,
+					price: element.price
+
+				});
+				document.getElementById("preis_size").innerText = parseFloat(document.getElementById("preis_size").innerText)+ element.price;
+			}
+		});
+
+	}
 	showAktuelleZutaten(p_id);
-	
+
 }
 
 function showInfos(id) {
@@ -633,26 +667,42 @@ function showInfos(id) {
 	document.querySelector("#showinfo").style.display = "block";
 	// document.querySelector("#supplement").style.display = "block";
 	var supplementTable = "";
-	var test = "";
-	
-	
+	var summe = 0;
+
+
+
 	pizza.forEach(com => {
 
 		supplement.forEach(e => {
 
 			if (id == com.id) {
 
-				supplementTable += '<table class="suppl" onclick="suppl_hinzufügen(' + e.id + ',' + id + ')" ><tr><td style="height:50px;"><img  class="photo" src="'
+				supplementTable += '<table class="suppl" onclick="suppl_hinzufügen(' + e.id + ',' + id + ')" ><tr><td style="height:50px;"><img  class="photo_zutaten" src="'
 					+ e.imagePath + '"></td><tr><td> <strong >'
 					+ e.name + '</strong></td> </tr></tr><tr><td>' + e.price + ' €</td></tr></table>';
 
-
-				document.querySelector("#showinfo").innerHTML = '<div class="mehrinfos"  style="margin : 15px"> <table><tr><td rowspan="2" id="td_img">'
+			
+				document.querySelector("#showinfo").innerHTML = '<div class="mehrinfos"  style="margin : 15px"> <h1 style="margin: 15Px;">' + com.name + '</h1>'
+					+ '<hr style="height:1px;border-width:0;color:gray;background-color:gray; margin-left: 15px; margin-right: 15px; margin-bottom: 30px;"></hr>'
+					+ '<table  style="margin:15px"><tr><td rowspan="5" id="td_img">'
 					+ '<img class="photo" src="'
-					+ com.imagePath + '"></td><td style="vertical-align: top;text-align: left; "><p class="name"> '
-					+ com.name + '</p></td> </tr><tr><td style="vertical-align: top;text-align: left; padding-left:10px"><strong >Preis:  </strong> ' + com.price + ' €</td></tr><tr><td colspan="2"><p> '
-					+ com.description + '</p></td></tr></table>'
-					+ '<p>AKTUELLE ZUTATEN</p>'
+					+ com.imagePath + '"></td><tr><td style="vertical-align: top;text-align: left; "><h3>BESCHREIBUNG</h3><p class="description"> '
+					+ com.description + '</p></td> </tr></tr>'
+					+ '<tr><td style="vertical-align: top;text-align: left; padding-left:10px"><strong >AKTUELLE GRÖSSE  </strong><br> <select id="size" onchange="myFunction(' + id + ')">'
+					+ '<option value="classic">Classic(25cm)</option>'
+					+ '<option value="medium">Medium(28cm)</option>'
+					+ '<option value="large">Large(32cm)</option>'
+					+ '</select> </td></tr>'
+
+					+ '<tr><td style="vertical-align: top;text-align: left; padding-left:10px"><br><strong>SUMME: </strong> <i id="preis_size">' + (com.price.classic + summe_belege(com.id)) + '</i> €</td></tr>'
+
+					+ '<tr><td style="vertical-align: top;text-align: left; padding-left:10px"><br><strong >ANZAHL  </strong><br> '
+					+ '<i class="fas fa-minus" onclick="minus(' + com.pizza_id + ')"></i> '
+					+ '<input type="text" id="anzahl_input' + com.pizza_id + '" style="width: 30px; height: 30px; text-align: center;" value="" disabled /> '
+					+ '<i class="fas fa-plus" onclick="plus(' + com.pizza_id + ')"></i>'
+
+					+ ' </td></tr></table>'
+					+ '<p>AKTUELLE ZUTATEN (Klicke <i class="fas fa-minus-circle"></i> zum entfernen)</p>'
 					+ '<div id="aktuelleZutaten"></div>'
 					+ '<p>ZUTATEN HINZUFÜGEN (Klicke zum hinzufügen)</p>'
 
@@ -670,27 +720,24 @@ function showInfos(id) {
 	});
 
 	showAktuelleZutaten(id);
-
-	// supplement.forEach(e => {
-
-	// 	supplementTable += '<table style ="width:30px;display:inline-table; table-layout:fixed;" border="2" ><tr><td id="td_img"><img class="photo" src="'
-	// 	+ e.imagePath + '"></td><tr><td><p class="name"> '
-	// 	+ e.name + '</p></td> </tr></tr><tr><td><strong >Preis:  </strong> ' + e.price + ' €</td></tr></table>' ;
-
-	// });
-
-	// document.querySelector("#supplement").innerHTML = supplementTable;
-	// document.querySelector("#showinfo").innerHTML = test ;
 }
 
 
 
 function showWarenkorb(array) {
 	var warenkorb = "";
+	var sup = "";
 	array.forEach(com => {
 
+		suppl.forEach(e => {
+
+			if (com.pizza_id == e.pizza_id) {
+				sup += '<li>' + e.name + '</li>';
+			}
+		});
 		warenkorb += '<div class="showWarenkorb"> <h4 class="name">'
-			+ com.pizza_name + ' </h4><h4 class="anzahl"> '
+			+ com.pizza_name + ' </h4><ul>' + sup + '</ul><h4 class="anzahl"> '
+
 			+ '<button type="button" class="minus"onclick="minus(' + com.pizza_id + ')"><i class="fas fa-minus">'
 			+ '</i></button> <input type="text" id="anzahl_input' + com.pizza_id + '" style="width: 30px; height: 30px; text-align: center;" value="' + com.Pizza_anzahl + '" disabled /> '
 			+ '<button type="button" class="plus" onclick="plus(' + com.pizza_id + ')"><i class="fas fa-plus"></i></button><span id="preis">Preis '
@@ -707,7 +754,6 @@ function showWarenkorb(array) {
 function hideInfos() {
 	document.querySelector("#showinfo").style.display = "none";
 	document.querySelector("#app").style.display = "block";
-	// document.querySelector("#supplement").style.display = "none";
 
 
 	// petTemplate(pizza);
@@ -772,3 +818,41 @@ function index(arr, key, val) {
 	}
 }
 
+function myFunction(id) {
+
+	var x = document.getElementById("size").value;
+	pizza.forEach(element => {
+
+
+		if (id == element.id) {
+
+			switch (x) {
+				case "classic": document.querySelector("#preis_size").innerHTML =  element.price.classic + summe_belege(id) 	;
+
+					break;
+				case "medium": document.querySelector("#preis_size").innerHTML =  element.price.medium + summe_belege(id);
+
+					break;
+
+				default: document.querySelector("#preis_size").innerHTML = element.price.large + summe_belege(id);
+					break;
+			}
+		}
+	});
+
+
+
+}
+
+function summe_belege(id){
+var s = 0;
+	suppl.forEach(element => {
+		
+		if(id == element.pizza_id){
+
+			s+= element.price;
+
+		}
+	});
+	return s;
+}
