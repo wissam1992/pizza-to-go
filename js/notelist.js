@@ -521,8 +521,9 @@ function hinzufuegen(id) {
 
 			if (array.some(item => item.pizza_id === id)) {
 
-				array[index(array, "pizza_id", id)].Pizza_anzahl++;
-				array[index(array, "pizza_id", id)].Pizza_summe = array[index(array, "pizza_id", id)].Pizza_preis * array[index(array, "pizza_id", id)].Pizza_anzahl;
+				var idx=index(array, "pizza_id", id);
+				array[idx].Pizza_anzahl++;
+				array[idx].Pizza_summe = array[idx].Pizza_preis * array[idx].Pizza_anzahl+summe_belege(id);
 
 				w++;
 				warenkorb();
@@ -535,8 +536,8 @@ function hinzufuegen(id) {
 					pizza_id: com.id,
 					pizza_name: com.name,
 					Pizza_image: com.imagePath,
-					Pizza_preis: com.price,
-					Pizza_summe: com.price * a,
+					Pizza_preis: com.price.classic,
+					Pizza_summe: com.price.classic* a +summe_belege(id),
 					Pizza_description: com.description,
 					Pizza_anzahl: a
 
