@@ -609,8 +609,9 @@ function hinzufuegen(id) {
 			if (array.some(item => item.pizza_id === id && item.pizza_size === size) && searchSupplememtInWarenkorb(id, array)) {
 
 
-				array[index(array, "pizza_id", id)].Pizza_anzahl++;
-				array[index(array, "pizza_id", id)].Pizza_summe = array[index(array, "pizza_id", id)].Pizza_preis * array[index(array, "pizza_id", id)].Pizza_anzahl;
+				var idx=index(array, "pizza_id", id);
+				array[idx].Pizza_anzahl++;
+				array[idx].Pizza_summe = array[idx].Pizza_preis * array[idx].Pizza_anzahl+summe_belege(id);
 
 				w++;
 				warenkorb();
@@ -646,6 +647,7 @@ function hinzufuegen(id) {
 					Pizza_summe: x * a,
 					Pizza_anzahl: a,
 					pizza_size: size,
+
 
 				});
 
