@@ -14,6 +14,93 @@ window.onload = function () {
 	//   }).catch((error) => console.error(error));
 
 
+
+	const array1 = [
+		{
+			"id": 1,
+			"imagePath": "Images//Cherrytomaten.jpg",
+			"name": "Cherrytomaten",
+			"price": 1.39
+		},
+		{
+			"id": 1,
+			"imagePath": "Images//Champignons.jpg",
+			"name": "Champignons",
+			"price": 0.75
+		}]
+	const array2 = [
+		{
+			"id": 1,
+			"imagePath": "Images//Cherrytomaten.jpg",
+			"name": "Cherrytomaten",
+			"price": 1.39,
+			"test": [{
+				"id": 33,
+				"imagePath": "Images//Cherrytomaten.jpg",
+				"name": "Cherrytomaten",
+				"price": 1.39
+			},
+			{
+				"id": 1,
+				"imagePath": "Images//Champignons.jpg",
+				"name": "Champignons",
+				"price": 0.75
+			}]
+		},
+		{
+			"id": 3,
+			"imagePath": "Images//Champignons.jpg",
+			"name": "Champignons",
+			"price": 0.75,
+			"test": [{
+				"id": 1,
+				"imagePath": "Images//Cherrytomaten.jpg",
+				"name": "Cherrytomaten",
+				"price": 1.39
+			},
+			{
+				"id": 1,
+				"imagePath": "Images//Champignons.jpg",
+				"name": "Champignons",
+				"price": 0.75
+			}]
+		},
+		{
+			"id": 22,
+			"imagePath": "Images//Champignons.jpg",
+			"name": "Champignons",
+			"price": 0.75,
+			"test": [{
+				"id": 1,
+				"imagePath": "Images//Cherrytomaten.jpg",
+				"name": "Cherrytomaten",
+				"price": 1.39
+			},
+			{
+				"id": 1,
+				"imagePath": "Images//Champignons.jpg",
+				"name": "Champignons",
+				"price": 0.75
+			}]
+		},
+	]
+
+	// array2.forEach(element => {
+
+
+	// 	if(JSON.stringify(array1) === JSON.stringify(element.test)){
+
+	// 	 console.log(JSON.stringify(element.id));
+	// 	}
+	// 	// else {console.log("false");}
+
+	// });
+
+	// console.log("break");
+
+	// console.log(JSON.stringify(array1) === JSON.stringify(array2));	
+
+	// console.log(supplementById(1,array1));
 	var input = document.querySelector("#pwd");
 	input.addEventListener("keyup",
 		function () {
@@ -500,8 +587,8 @@ function petTemplate(pizza) {
 	pizza.forEach(com => {
 		pizzaList += '<div class="animal"><img class="pet-photo" src="'
 			+ com.imagePath + '"> <h2 class="pet-name">' + com.name + ' </h2>  <p id="description2"> '
-			+ com.description + '</p>  <p><span id="price"><strong >Preis:  </strong>'
-			+ com.price.classic + ' €</span><span id="preis3"><a id="mehrInfo" onclick="showInfos('
+			+ com.description + '</p>  <p><span id="price"><strong >Preis:  </strong><i id= "preis_default' + com.id + '">'
+			+ com.price.classic + '</i> €</span><span id="preis3"><a id="mehrInfo" onclick="showInfos('
 			+ com.id + ')">Mehr Infos <i class="fas fa-info-circle"></i></a><button type="button" class="hinzufuegen" id="hinzufuegen" onclick="hinzufuegen('
 			+ com.id + ')" ><i class="fas fa-cart-plus"></i></button>  </span> </p></div >';
 	});
@@ -518,8 +605,9 @@ function hinzufuegen(id) {
 	pizza.forEach(com => {
 
 		if (id == com.id) {
+			var size = document.getElementById("size").value;
+			if (array.some(item => item.pizza_id === id && item.pizza_size === size) && searchSupplememtInWarenkorb(id, array)) {
 
-			if (array.some(item => item.pizza_id === id)) {
 
 				array[index(array, "pizza_id", id)].Pizza_anzahl++;
 				array[index(array, "pizza_id", id)].Pizza_summe = array[index(array, "pizza_id", id)].Pizza_preis * array[index(array, "pizza_id", id)].Pizza_anzahl;
@@ -527,21 +615,44 @@ function hinzufuegen(id) {
 				w++;
 				warenkorb();
 				summe();
+
 			}
 
 			else {
 
+				beilage = [];
+
+				var x = document.getElementById('preis_default' + com.id).innerHTML;
+				var size = document.getElementById("size").value;
+				suppl.forEach(element => {
+
+
+					beilage.push({
+						pizza_id: element.pizza_id,
+						supplement_id: element.supplement_id,
+						imagePath: element.imagePath,
+						name: element.name,
+						price: element.price
+
+					});
+				});
+
+
 				array.push({
 					pizza_id: com.id,
 					pizza_name: com.name,
-					Pizza_image: com.imagePath,
-					Pizza_preis: com.price,
-					Pizza_summe: com.price * a,
-					Pizza_description: com.description,
-					Pizza_anzahl: a
+					pizza_sup: beilage,
+					Pizza_preis: x,
+					Pizza_summe: x * a,
+					Pizza_anzahl: a,
+					pizza_size: size,
 
 				});
 
+				// console.log(array);
+				// console.log(suppl);
+				// console.log(supplementById(id));	
+				//	console.log(document.getElementById("size").value);
 				w++;
 				warenkorb();
 				summe();
@@ -614,15 +725,15 @@ function suppl_löschen(s_id, p_id) {
 			if (i > -1) {
 				suppl.splice(i, 1);
 			}
-			
+
 		}
 
 	});
 
-	
+
 	showAktuelleZutaten(p_id);
 
-	
+
 }
 function suppl_hinzufügen(s_id, p_id) {
 
@@ -630,8 +741,8 @@ function suppl_hinzufügen(s_id, p_id) {
 	suppl.forEach(e => {
 
 		if (e.pizza_id == p_id) {
-			sum++; 
-			
+			sum++;
+
 		}
 	});
 
@@ -652,7 +763,7 @@ function suppl_hinzufügen(s_id, p_id) {
 					price: element.price
 
 				});
-				document.getElementById("preis_size").innerText = parseFloat(document.getElementById("preis_size").innerText)+ element.price;
+				document.getElementById("preis_size").innerText = parseFloat(document.getElementById("preis_size").innerText) + element.price;
 			}
 		});
 
@@ -660,7 +771,7 @@ function suppl_hinzufügen(s_id, p_id) {
 	showAktuelleZutaten(p_id);
 
 }
-
+var anzahlPizza = 1;
 function showInfos(id) {
 
 	document.querySelector("#app").style.display = "none";
@@ -681,7 +792,7 @@ function showInfos(id) {
 					+ e.imagePath + '"></td><tr><td> <strong >'
 					+ e.name + '</strong></td> </tr></tr><tr><td>' + e.price + ' €</td></tr></table>';
 
-			
+
 				document.querySelector("#showinfo").innerHTML = '<div class="mehrinfos"  style="margin : 15px"> <h1 style="margin: 15Px;">' + com.name + '</h1>'
 					+ '<hr style="height:1px;border-width:0;color:gray;background-color:gray; margin-left: 15px; margin-right: 15px; margin-bottom: 30px;"></hr>'
 					+ '<table  style="margin:15px"><tr><td rowspan="5" id="td_img">'
@@ -696,10 +807,10 @@ function showInfos(id) {
 
 					+ '<tr><td style="vertical-align: top;text-align: left; padding-left:10px"><br><strong>SUMME: </strong> <i id="preis_size">' + (com.price.classic + summe_belege(com.id)) + '</i> €</td></tr>'
 
-					+ '<tr><td style="vertical-align: top;text-align: left; padding-left:10px"><br><strong >ANZAHL  </strong><br> '
-					+ '<i class="fas fa-minus" onclick="minus(' + com.pizza_id + ')"></i> '
-					+ '<input type="text" id="anzahl_input' + com.pizza_id + '" style="width: 30px; height: 30px; text-align: center;" value="" disabled /> '
-					+ '<i class="fas fa-plus" onclick="plus(' + com.pizza_id + ')"></i>'
+					+ '<tr><td style="vertical-align: top;text-align: left; padding-left:10px"><br><strong >ANZAHL</strong> '
+					+ '<i class="fas fa-minus" onclick="minusPizza(' + com.id + ')"></i> '
+					+ '<input type="text" id="anzahl_input_info' + com.id + '" style="width: 25px; height: 20px; text-align: center;" value =" ' + anzahlPizza + '"disabled /> '
+					+ '<i class="fas fa-plus" onclick="plusPizza(' + com.id + ')"></i>'
 
 					+ ' </td></tr></table>'
 					+ '<p>AKTUELLE ZUTATEN (Klicke <i class="fas fa-minus-circle"></i> zum entfernen)</p>'
@@ -723,20 +834,22 @@ function showInfos(id) {
 }
 
 
-
+var sup = "";
 function showWarenkorb(array) {
 	var warenkorb = "";
-	var sup = "";
+	
 	array.forEach(com => {
+		 sup = "";
+		
+		com.pizza_sup.forEach(e => {
 
-		suppl.forEach(e => {
-
-			if (com.pizza_id == e.pizza_id) {
-				sup += '<li>' + e.name + '</li>';
-			}
+		sup += '<li>' + e.name + '</li>';
+			
 		});
 		warenkorb += '<div class="showWarenkorb"> <h4 class="name">'
-			+ com.pizza_name + ' </h4><ul>' + sup + '</ul><h4 class="anzahl"> '
+			+ com.pizza_name + ' (' + com.pizza_size + ') </h4>'
+			+ '<ul>' +sup + '</ul>'
+			+ '<h4 class="anzahl">'
 
 			+ '<button type="button" class="minus"onclick="minus(' + com.pizza_id + ')"><i class="fas fa-minus">'
 			+ '</i></button> <input type="text" id="anzahl_input' + com.pizza_id + '" style="width: 30px; height: 30px; text-align: center;" value="' + com.Pizza_anzahl + '" disabled /> '
@@ -746,6 +859,7 @@ function showWarenkorb(array) {
 			+ com.pizza_id + ')"><i class="far fa-trash-alt"></i></button></span></div >';
 	});
 
+	// sup = "";
 	document.querySelector("#warenkorb").innerHTML = warenkorb;
 }
 
@@ -803,6 +917,8 @@ function minus(id) {
 
 		// document.querySelector("#preis2").innerHTML = e.Pizza_summe;
 		document.querySelector("#anzahl_input" + id).value = e.Pizza_anzahl;
+		document.querySelector("#anzahl_input_info" + id).value = e.Pizza_anzahl;
+
 		summe();
 		showWarenkorb(array);
 
@@ -827,10 +943,10 @@ function myFunction(id) {
 		if (id == element.id) {
 
 			switch (x) {
-				case "classic": document.querySelector("#preis_size").innerHTML =  element.price.classic + summe_belege(id) 	;
+				case "classic": document.querySelector("#preis_size").innerHTML = element.price.classic + summe_belege(id);
 
 					break;
-				case "medium": document.querySelector("#preis_size").innerHTML =  element.price.medium + summe_belege(id);
+				case "medium": document.querySelector("#preis_size").innerHTML = element.price.medium + summe_belege(id);
 
 					break;
 
@@ -844,15 +960,64 @@ function myFunction(id) {
 
 }
 
-function summe_belege(id){
-var s = 0;
+function summe_belege(id) {
+	var s = 0;
 	suppl.forEach(element => {
-		
-		if(id == element.pizza_id){
 
-			s+= element.price;
+		if (id == element.pizza_id) {
+
+			s += element.price;
 
 		}
 	});
 	return s;
+}
+
+function plusPizza(id) {
+
+	document.querySelector("#anzahl_input_info" + id).value = ++anzahlPizza;
+
+}
+
+function minusPizza(id) {
+
+	if (anzahlPizza != 1) document.querySelector("#anzahl_input_info" + id).value = --anzahlPizza;
+
+}
+
+// function hinzufuegen1(id){
+
+
+
+// }
+
+function supplementById(id) {
+
+	a = [];
+	suppl.forEach(element => {
+
+		if (element.pizza_id == id) {
+			a.push(element);
+		}
+	});
+
+	return a;
+
+}
+
+
+function searchSupplememtInWarenkorb(id, a) {
+
+	var b = 0;
+	a.forEach(element => {
+
+		if (JSON.stringify(supplementById(id)) === JSON.stringify(element.pizza_sup)) {
+
+			b++;
+		}
+
+	});
+
+	if (b != 0) return true;
+	else return false;
 }
